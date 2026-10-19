@@ -536,9 +536,12 @@ with st.sidebar:
         st.markdown(f"**{st.session_state.farmer_name}**")
         st.caption(st.session_state.village)
 
-        if st.button("✎  Edit Profile", use_container_width=True):
-            go_to_page("Farmer Profile")
-            st.rerun()
+        st.button(
+            "✎  Edit Profile",
+            use_container_width=True,
+            on_click=go_to_page,
+            args=("Farmer Profile",),
+        )
     else:
         st.caption("Set up your farmer profile to begin.")
 
@@ -748,13 +751,13 @@ if selected_page == "Dashboard Home":
                 unsafe_allow_html=True,
             )
 
-        if st.button(
+        st.button(
             "🌱  Get Crop Recommendation",
             type="primary",
             use_container_width=True,
-        ):
-            go_to_page("Crop Recommendation")
-            st.rerun()
+            on_click=go_to_page,
+            args=("Crop Recommendation",),
+        )
 
     with right:
         st.markdown("### ⚡ Quick Actions")
@@ -768,10 +771,13 @@ if selected_page == "Dashboard Home":
         ]
 
         for label, target_page in quick_actions:
-            if st.button(label, key=f"quick_{target_page}",
-                         use_container_width=True):
-                go_to_page(target_page)
-                st.rerun()
+            st.button(
+                label,
+                key=f"quick_{target_page}",
+                use_container_width=True,
+                on_click=go_to_page,
+                args=(target_page,),
+            )
 
     st.write("")
 
@@ -783,9 +789,12 @@ if selected_page == "Dashboard Home":
         st.caption("Your latest saved analyses and recommendations")
 
     with activity_right:
-        if st.button("View All History →", use_container_width=True):
-            go_to_page("Analysis History")
-            st.rerun()
+        st.button(
+            "View All History →",
+            use_container_width=True,
+            on_click=go_to_page,
+            args=("Analysis History",),
+        )
 
     if recent.empty:
         st.markdown(
@@ -1232,9 +1241,12 @@ elif selected_page == "Model Analytics":
                 with right:
                     st.write(row["Explanation"])
 
-    if st.button("Open Crop Recommendation", type="primary"):
-        go_to_page("Crop Recommendation")
-        st.rerun()
+    st.button(
+        "Open Crop Recommendation",
+        type="primary",
+        on_click=go_to_page,
+        args=("Crop Recommendation",),
+    )
 
 
 # =========================================================
