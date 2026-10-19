@@ -1,6 +1,7 @@
 
 import json
 import sqlite3
+import html
 from pathlib import Path
 from datetime import datetime
 
@@ -162,6 +163,31 @@ st.markdown(
         font-weight: 700;
         letter-spacing: 0.7px;
         margin: 4px 0 12px 0;
+    }
+
+    .farmer-account {
+        padding: 6px 0 2px;
+        color: #234c40;
+    }
+    .farmer-account-heading {
+        color: #145c46 !important;
+        font-size: 1rem;
+        font-weight: 750;
+        margin-bottom: 12px;
+    }
+    .farmer-account-name {
+        color: #183f32 !important;
+        font-size: 1rem;
+        font-weight: 750;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+    }
+    .farmer-account-location {
+        color: #60796d !important;
+        font-size: .86rem;
+        line-height: 1.45;
+        margin-top: 5px;
+        overflow-wrap: anywhere;
     }
 
     .hero {
@@ -532,9 +558,14 @@ with st.sidebar:
     st.divider()
 
     if st.session_state.farmer_name:
-        st.markdown("### 👨‍🌾 FARMER ACCOUNT")
-        st.markdown(f"**{st.session_state.farmer_name}**")
-        st.caption(st.session_state.village)
+        st.markdown(
+            '<div class="farmer-account">'
+            '<div class="farmer-account-heading">👨‍🌾 FARMER ACCOUNT</div>'
+            f'<div class="farmer-account-name">{html.escape(str(st.session_state.farmer_name))}</div>'
+            f'<div class="farmer-account-location">{html.escape(str(st.session_state.village))}</div>'
+            '</div>',
+            unsafe_allow_html=True,
+        )
 
         st.button(
             "✎  Edit Profile",
